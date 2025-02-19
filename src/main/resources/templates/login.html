@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | KolkataCallGirl</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <!-- Favicon for browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Apple Touch Icon (for iOS devices) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-120x120.png">
+
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-192x192.png">
+
+    <!-- Web App Manifest (For PWA support) -->
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+
+    <style>
+        html, body {
+            background-color: #121212;
+            font-family: "Lato", sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .login-content {
+            color: #fff;
+            max-width: 400px;
+        }
+
+        .login-content h2 {
+            font-family: "Montserrat", sans-serif;
+            margin-bottom: 1rem;
+        }
+
+        .login-content p {
+            font-size: 16px;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-with-google-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background-color: #fff;
+            color: #333;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .login-with-google-btn:hover {
+            background-color: #f1f1f1;
+            transform: scale(1.05);
+        }
+
+        .text-center a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .text-center a:hover {
+            text-decoration: underline;
+        }
+
+        .navbar .navbar-brand, .navbar .nav-link {
+            color: #fff !important;
+            font-weight: bold !important;
+        }
+
+    </style>
+</head>
+<body>
+<div th:replace="fragments/_navbar :: navbar"></div>
+
+<div class="container">
+    <div class="login-content">
+        <h1>Welcome To</h1>
+        <h2>KolkataCallGirl</h2>
+
+        <a href="/oauth2/authorization/google" class="login-with-google-btn">
+            <i class="fab fa-google"></i>&nbsp; Sign in with Google
+        </a>
+
+        <div class="text-center mt-3">
+            <a href="/">Back to Home</a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/_footer :: footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

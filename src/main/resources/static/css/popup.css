@@ -1,0 +1,106 @@
+
+
+.comment-box {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    width: 600px;
+    display: none;
+    flex-direction: column;
+
+}
+
+
+.comment-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    background: #ccc;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-icon i {
+    font-size: 20px;
+    color: #555;
+}
+
+textarea {
+    flex-grow: 1;
+    height: 80px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+    outline: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.cancel,
+ .post {
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.cancel {
+    background: #fff;
+    border: 1px solid #aaa;
+    color: #444;
+}
+
+.post {
+    background: #222;
+    color: white;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 250px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: white;
+  color: #555;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.google-btn:hover {
+  background-color: #f8f9fa;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.google-btn i {
+  color: #db4437;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+    .comment-box {
+        width: 300px;
+        padding: 10px;
+    }
+}

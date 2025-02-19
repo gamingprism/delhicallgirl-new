@@ -1,0 +1,114 @@
+/* Categories Section */
+.categories-section {
+    text-align: center;
+    margin: 0.5rem 0; /* Reduced top & bottom spacing */
+    padding: 10px 0;
+}
+
+/* Scrollable Categories */
+.categories-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    overflow-x: auto;
+    padding: 8px 0;
+    white-space: nowrap;
+    scrollbar-width: none; /* Hide scrollbar for modern browsers */
+}
+
+.categories-wrapper::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+/* Categories Section */
+.categories-section {
+    text-align: center;
+    margin: 0.5rem 0; /* Adjusted spacing */
+    padding: 5px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Scrollable Categories */
+.categories-wrapper {
+    display: flex;
+    justify-content: center; /* Center items */
+    align-items: center;
+    gap: 12px;
+    overflow-x: auto;
+    padding: 5px 0;
+    white-space: nowrap;
+    scrollbar-width: none;
+    width: 100%;
+}
+
+/* Hide scrollbar for Chrome, Safari */
+.categories-wrapper::-webkit-scrollbar {
+    display: none;
+}
+
+/* Category Item */
+.category-item {
+    flex: 0 0 auto;
+    padding: 8px 14px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Category Link */
+.category-link {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold; /* Made text bold */
+    text-transform: uppercase;
+    color: #fff; /* Changed text color to white */
+    position: relative;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+/* Hover & Active Effect */
+.category-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 100%;
+    height: 2px;
+    background-color: #cec51a;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.category-item:hover .category-link::after,
+.category-item.active .category-link::after {
+    opacity: 1;
+}
+
+/* 🔹 Mobile Responsiveness */
+@media (max-width: 768px) {
+    .categories-section {
+        margin: 0.3rem 0;
+        padding: 3px 0; /* Reduced bottom space */
+    }
+
+    .categories-wrapper {
+        justify-content: center; /* Ensures perfect centering */
+        padding: 5px 10px;
+        overflow-x: auto;
+    }
+
+    .category-item {
+        padding: 6px 10px;
+    }
+
+    .category-link {
+        font-size: 12px; /* Adjusted for mobile */
+    }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${categoryName} + '-Find Top ' + ${categoryName} + ', Classified Ads Website, ' + ${categoryName} + ' Agency'"></title>
+    <meta name="description"
+          th:content="'Explore one of the top' + ${categoryName} + ' sites in India. Book your ' + ${categoryName} + ' now to fulfil your sexual desires. You can post your ads for free to one of our top classified sites like Incallup, Call4up.'">
+
+    <link rel="canonical" th:href="${canonicalUrl}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <!-- Favicon for browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Apple Touch Icon (for iOS devices) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-120x120.png">
+
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-192x192.png">
+
+    <!-- Web App Manifest (For PWA support) -->
+    <link rel="manifest" href="/manifest.json">
+
+
+    <link rel="stylesheet" th:href="@{/css/cards.css}">
+    <link rel="stylesheet" th:href="@{/css/breadcrumb.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <style>
+        :root {
+            --brand-color: hsl(46, 100%, 50%);
+            --black: hsl(0, 0%, 0%);
+            --white: hsl(0, 0%, 100%);
+            --font-title: "Montserrat", sans-serif;
+            --font-text: "Lato", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        html,body {
+            background-color: #121212;
+            font-family: var(--font-text);
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            padding: 0 15px;
+            /*flex: 1;*/
+        }
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .footer-container {
+            margin-top: auto;
+        }
+        .no-content-div{
+            color: wheat ;
+        }
+
+        .recent-blogs-title {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: "Montserrat", sans-serif;
+            color: var(--black);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 10px 0;
+            text-align: center;
+            background: linear-gradient(90deg, rgba(255,193,7,1) 0%, rgba(255,152,0,1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 3px solid var(--brand-color);
+            margin: 40px auto 20px;
+            display: inline-block;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div th:replace="fragments/_navbar :: navbar"></div>
+
+    <div class="container">
+        <div class="categories-section">
+            <div class="categories-wrapper">
+                <div class="category-item" th:each="category : ${categories}">
+                    <a th:href="@{/{slug}(slug=${#strings.replace(category.name, ' ', '-')})}" class="category-link">
+                        <span class="category-name" th:text="${category.name}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-2">
+        <nav class="breadcrumb">
+            <ul class="breadcrumb-links">
+                <li>
+                    <a href="/" class="breadcrumb-box">
+                        <svg class="breadcrumb-icon-home" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 011.414 0l7 7A1 1 0 0117 11h-1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-3a1 1 0 00-1-1H9a1 1 0 00-1 1v3a1 1 0 01-1 1H5a1 1 0 01-1-1v-6H3a1 1 0 01-.707-1.707l7-7z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="breadcrumb-text">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="breadcrumb-box">
+                        <svg class="breadcrumb-icon" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                        </svg>
+                        <a th:href="@{'/' + ${categoryName}}" class="breadcrumb-text" th:text="${categoryName}"></a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="container mt-3 mb-6">
+        <div th:if="${#lists.isEmpty(categoryBlogs)}" class="text-center mt-4">
+            <h4 class="no-content-div">No Blogs Found For <strong th:text="${categoryName}"></strong>!</h4>
+        </div>
+
+        <div class="card-grid" th:if="${not #lists.isEmpty(categoryBlogs)}">
+            <div class="card-wrapper" th:each="blog : ${categoryBlogs}">
+                <a th:href="@{/{slug}(slug=${blog.slug})}" class="card-link">
+                    <article class="card">
+                        <img class="card__background" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
+                        <div class="card__content">
+                            <h2 class="card__title" th:text="${blog.category}"></h2>
+                            <p class="card__description" th:utext="${blog.title}"></p>
+                            <div class="card__button">Read More</div>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="recent-blogs-title">Find Our Recent Articles!</h2>
+
+    <div class="container mt-4 mb-2">
+        <div class="card-grid" th:if="${not #lists.isEmpty(recentBlogs)}">
+            <div class="card-wrapper" th:each="blog : ${recentBlogs}">
+                <a th:href="@{/{slug}(slug=${blog.slug})}" class="card-link">
+                    <article class="card">
+                        <img class="card__background" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
+                        <div class="card__content">
+                            <h2 class="card__title" th:text="${blog.category}"></h2>
+                            <p class="card__description" th:utext="${blog.title}"></p>
+                            <div class="card__button">Read More</div>
+                        </div>
+                    </article>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-container">
+        <div th:replace="fragments/_footer :: footer"></div>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

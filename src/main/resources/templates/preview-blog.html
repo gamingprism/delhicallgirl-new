@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    <!-- Favicon for browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Apple Touch Icon (for iOS devices) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-120x120.png">
+
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-192x192.png">
+
+    <!-- Web App Manifest (For PWA support) -->
+    <link rel="manifest" href="/manifest.json">
+
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/blog-preview.css}">
+    <style>
+        :root {
+            --brand-color: hsl(46, 100%, 50%);
+            --black: hsl(0, 0%, 0%);
+            --white: hsl(0, 0%, 100%);
+            --font-title: "Montserrat", sans-serif;
+            --font-text: "Lato", sans-serif;
+        }
+        body{
+            background: #121212;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="fragments/_navbar :: navbar"></div>
+
+
+<div class="blog-main-container">
+    <div class="blog-wrapper">
+        <div class="blog-container">
+            <div class="blog-header">
+                <h1 th:text="${blog.title}"></h1>
+                <div class="blog-meta">
+                    <div>
+                        <span><i class="fa-solid fa-user-tie"></i></span>
+                        <span th:text="${blog.author}"></span>
+
+                    </div>
+                    <div>
+                        <span><i class="fa-solid fa-calendar-days"></i></span>
+                        <span th:text="${blog.date}"></span>
+                    </div>
+
+                    <div>
+                        <span><i class="fa-solid fa-eye"></i></span>
+                        <span th:text="${blog.views}"></span>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="content-wrapper">
+                <!-- Blog Image (Left-Aligned) -->
+                <img class="blog-image" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
+
+                <div class="blog-content" id="blog-content">
+                    <div class="table-of-contents">
+                        <h3 id="toc-header">
+                            Table of Contents
+                            <i id="toc-icon" class="fa-solid fa-chevron-down"></i>
+                        </h3>
+
+                        <ul id="toc-list" class="hidden"></ul>
+                    </div>
+                    <div id="blog-text" th:utext="${blog.content}" class="blog-text ">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let blogContent = document.getElementById("blog-text");
+        let tocList = document.getElementById("toc-list");
+
+
+        if (!blogContent || !tocList) return;
+
+        let headers = blogContent.querySelectorAll("p > strong");
+        headers.forEach((header, index) => {
+            let id = "heading-" + index;
+            header.parentElement.id = id;
+
+            let listItem = document.createElement("li");
+            let link = document.createElement("a");
+            link.href = "#" + id;
+            link.innerText = header.innerText;
+            link.addEventListener("click", function(event) {
+                event.preventDefault();
+                document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+            });
+
+            listItem.appendChild(link);
+            tocList.appendChild(listItem);
+        });
+
+
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const tocHeader = document.getElementById("toc-header");
+        const tocList = document.getElementById("toc-list");
+        const tocIcon = document.getElementById("toc-icon");
+
+        tocHeader.addEventListener("click", function() {
+            tocList.classList.toggle("hidden"); // Toggle class for hiding/showing
+
+            // Toggle rotation class for icon
+            tocIcon.classList.toggle("rotate");
+        });
+    });
+
+</script>
+
+<!-- Footer -->
+<div th:replace="fragments/_footer :: footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+version: '3.8'
+
+networks:
+  my-network:
+
+services:
+  blogs:
+    image: gamingprism/kolkatacallgirl:19_02_02
+    ports:
+      - "8085:8085"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://172.17.0.1:3306/kolkatacallgirl?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_USERNAME=blogs
+      - SPRING_DATASOURCE_PASSWORD=Ashish@1234
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQLDialect
+    networks:
+      - my-network
+    restart: always
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  db_data:

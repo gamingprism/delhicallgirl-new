@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>100% Genuine Kolkata Escort Service, WB, India – KolkataCallGirl</title>
+    <meta name="description" content="Are you looking for 100% genuine Escort Service in Kolkata? Book our top Kolkata Escort Service now! West Bengal, India">
+    <link rel="canonical" th:href="${canonicalUrl}" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+
+    <!-- Favicon for browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+    <!-- Apple Touch Icon (for iOS devices) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-120x120.png">
+
+    <!-- Android Chrome Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-36x36.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-48x48.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-144x144.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/android-icon-192x192.png">
+
+    <!-- Web App Manifest (For PWA support) -->
+    <link rel="manifest" href="/manifest.json">
+
+
+    <link rel="stylesheet" th:href="@{/css/cards.css}">
+    <link rel="stylesheet" th:href="@{/css/categories.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <style>
+        :root {
+            --brand-color: hsl(46, 100%, 50%);
+            --black: hsl(0, 0%, 0%);
+            --white: hsl(0, 0%, 100%);
+            --font-title: "Montserrat", sans-serif;
+            --font-text: "Lato", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #121212;
+            font-family: var(--font-text);
+        }
+
+        .container {
+            padding: 0 15px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div th:replace="fragments/_navbar :: navbar"></div>
+
+<div class="container">
+    <div class="categories-section">
+        <div class="categories-wrapper">
+            <div class="category-item" th:each="category : ${categories}">
+                <a th:href="@{/{slug}(slug=${#strings.replace(category.name, ' ', '-')})}" class="category-link">
+                    <span class="category-name" th:text="${category.name}"></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card-grid">
+        <div class="card-wrapper" th:each="blog : ${homeBlogs}">
+            <a th:href="@{/{slug}(slug=${blog.slug})}" class="card-link">
+                <article class="card">
+                    <img class="card__background" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
+                    <div class="card__content">
+                        <h2 class="card__title" th:text="${blog.category}"></h2>
+                        <p class="card__description" th:text="${blog.title}"></p>
+                        <div class="card__button">Read More</div>
+                    </div>
+                </article>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/_footer :: footer"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
