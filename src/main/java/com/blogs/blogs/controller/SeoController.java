@@ -45,7 +45,7 @@ public class SeoController {
         urls.addAll(blogs);
 
 
-        String baseUrl = "https://kolkataescort24.com";
+        String baseUrl = "https://delhicallgirl.agency";
         String today = LocalDate.now().toString();
 
         StringBuilder sitemap = new StringBuilder();

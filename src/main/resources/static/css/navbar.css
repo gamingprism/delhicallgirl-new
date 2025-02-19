@@ -1,12 +1,43 @@
 .navbar {
-    background-color: #121212 !important; /* Changed to black */
+    background: linear-gradient(to right, #8b0000, #000000);
 }
 
+
 .navbar-brand {
-    color: #cec51a !important;
-    font-size: 1.5rem;
+    color: #ff0000; /* Red color */
+    font-size: 1.8rem;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Orbitron', sans-serif; /* A futuristic font */
+    position: relative;
+    animation: glitch 1s infinite;
 }
+
+@keyframes glitch {
+    0% {
+        text-shadow: 2px 2px 0 #00ffff, -2px -2px 0 #ff00ff; /* Cyan and magenta shadows */
+    }
+    25% {
+        text-shadow: -2px 2px 0 #00ffff, 2px -2px 0 #ff00ff;
+    }
+    50% {
+        text-shadow: 2px -2px 0 #00ffff, -2px 2px 0 #ff00ff;
+    }
+    75% {
+        text-shadow: -2px -2px 0 #00ffff, 2px 2px 0 #ff00ff;
+    }
+    100% {
+        text-shadow: 2px 2px 0 #00ffff, -2px -2px 0 #ff00ff;
+    }
+}
+
+.navbar-brand:hover {
+    animation: glitch 0.5s infinite; /* Faster glitch effect on hover */
+}
+
+
+
 
 .navbar-nav .nav-link {
     color: #fff !important; /* Changed text color to white */

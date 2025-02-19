@@ -5,9 +5,9 @@ networks:
 
 services:
   blogs:
-    image: gamingprism/kolkatacallgirl:19_02_02
+    image: gamingprism/delhicallgirl:19_02_02
     ports:
-      - "8085:8085"
+      - "80:8085"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://172.17.0.1:3306/kolkatacallgirl?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=blogs

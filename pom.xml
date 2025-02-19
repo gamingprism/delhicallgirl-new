@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.blogs</groupId>
-	<artifactId>delhiescortservice</artifactId>
+	<artifactId>delhicallgirl</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>blogs</name>
 	<description>Demo project for Spring Boot</description>
