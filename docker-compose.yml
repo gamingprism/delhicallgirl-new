@@ -9,7 +9,7 @@ services:
     ports:
       - "80:8085"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://172.17.0.1:3306/kolkatacallgirl?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://172.17.0.1:3306/delhicallgirl?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       - SPRING_DATASOURCE_USERNAME=blogs
       - SPRING_DATASOURCE_PASSWORD=Ashish@1234
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update

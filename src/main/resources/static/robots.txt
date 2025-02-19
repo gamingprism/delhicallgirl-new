@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://delhicallgirl.agency//sitemap.xml
+Sitemap: https://delhicallgirl.agency/sitemap.xml
