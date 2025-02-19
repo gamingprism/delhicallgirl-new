@@ -18,10 +18,10 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar file from the build stage
-COPY --from=build /app/target/kolkatacallgirl-0.0.1-SNAPSHOT.jar /app/kolkatacallgirl-0.0.1-SNAPSHOT.jar
+COPY --from=build /app/target/delhicallgirl-0.0.1-SNAPSHOT.jar /app/delhicallgirl-0.0.1-SNAPSHOT.jar
 
 # Expose the port the application will run on
 EXPOSE 8085
 
 # Run the jar file
-ENTRYPOINT ["java", "-jar", "/app/kolkatacallgirl-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "/app/delhicallgirl-0.0.1-SNAPSHOT.jar"]
