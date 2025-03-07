@@ -1,5 +1,6 @@
 package com.blogs.blogs.entity;
 
+import com.blogs.blogs.enums.BlogStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -46,6 +47,13 @@ public class Blog {
 
     @Column(unique = true)
     private String previewToken;
+
+    private String customButtonName;
+
+    private String customButtonUrl;
+
+    @Enumerated(EnumType.STRING)
+    private BlogStatus status;
 
 
     // getters, setters
@@ -161,5 +169,48 @@ public class Blog {
 
     public void setPreviewToken(String previewToken) {
         this.previewToken = previewToken;
+    }
+
+    public String getCustomButtonName() {
+        return customButtonName;
+    }
+
+    public void setCustomButtonName(String customButtonName) {
+        this.customButtonName = customButtonName;
+    }
+
+    public String getCustomButtonUrl() {
+        return customButtonUrl;
+    }
+
+    public void setCustomButtonUrl(String customButtonUrl) {
+        this.customButtonUrl = customButtonUrl;
+    }
+
+    public BlogStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(BlogStatus status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Blog{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", image='" + image + '\'' +
+                ", imageAltText='" + imageAltText + '\'' +
+                ", metaTitle='" + metaTitle + '\'' +
+                ", metaDescription='" + metaDescription + '\'' +
+                ", slug='" + slug + '\'' +
+                ", createdAt=" + createdAt +
+                ", views=" + views +
+                ", previewToken='" + previewToken + '\'' +
+                ", customButtonName='" + customButtonName + '\'' +
+                ", customButtonUrl='" + customButtonUrl + '\'' +
+                '}';
     }
 }

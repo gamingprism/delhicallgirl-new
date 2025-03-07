@@ -120,7 +120,7 @@ public class AuthorController {
                     metaTitle, metaDescription, slug, principal.getAttribute("email"));
             return "redirect:/my-blogs";
         } catch (Exception e) {
-          e.printStackTrace();
+            e.printStackTrace();
         }
 
         return "redirect:/my-blogs";
@@ -155,6 +155,46 @@ public class AuthorController {
         model.addAttribute("blog", blog);
         return "preview-blog";
     }
+
+    @GetMapping("/profile/{authorId}")
+    public String authorPage(Model model,
+                             @PathVariable("authorId") String authorId,
+                             @AuthenticationPrincipal OAuth2User principal) {
+        Optional<User> userOptional = userRepository.findById(authorId);
+
+        if (userOptional.isEmpty()) {
+            return "profile-not-found";
+        }
+
+        User user = userOptional.get();
+        boolean isOwner = false;
+
+        if (principal != null) {
+            String currentUserId = principal.getAttribute("sub");
+            isOwner = currentUserId.equals(authorId);
+        }
+
+        model.addAttribute("profile", authorService.getAuthorProfile(user));
+        model.addAttribute("isOwner", isOwner);
+        return "author-profile";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/profile/{authorId}/edit")
+    public String updateProfile(@PathVariable String authorId,
+                                @RequestParam String name,
+                                @RequestParam(required = false) MultipartFile picture,
+                                @AuthenticationPrincipal OAuth2User principal) {
+        String currentUserId = principal.getAttribute("sub");
+
+        if (!currentUserId.equals(authorId)) {
+            return "no-permission";
+        }
+
+        authorService.updateAuthorProfile(authorId, name, picture);
+        return "redirect:/profile/" + authorId;
+    }
+
 }
 
 

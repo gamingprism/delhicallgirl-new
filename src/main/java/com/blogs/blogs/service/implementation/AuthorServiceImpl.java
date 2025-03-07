@@ -4,10 +4,12 @@ import com.blogs.blogs.config.RemoteStorage;
 import com.blogs.blogs.entity.Blog;
 import com.blogs.blogs.entity.Category;
 import com.blogs.blogs.entity.User;
+import com.blogs.blogs.enums.BlogStatus;
 import com.blogs.blogs.repo.BlogRepository;
 import com.blogs.blogs.repo.CategoryRepository;
 import com.blogs.blogs.repo.UserRepository;
 import com.blogs.blogs.response.AuthorBlogsResponse;
+import com.blogs.blogs.response.AuthorProfileResponse;
 import com.blogs.blogs.response.BlogsPageResponse;
 import com.blogs.blogs.service.AuthorService;
 import com.blogs.blogs.service.HomeService;
@@ -15,6 +17,8 @@ import com.blogs.blogs.utility.AppUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -56,6 +60,7 @@ public class AuthorServiceImpl implements AuthorService {
             response.setCategory(blog.getCategory().getName());
             response.setDate(AppUtility.calculateTimeAgo(blog.getCreatedAt()));
             response.setPreviewToken(blog.getPreviewToken());
+            response.setStatus(String.valueOf(blog.getStatus()));
             responses.add(response);
         });
         return responses;
@@ -92,6 +97,7 @@ public class AuthorServiceImpl implements AuthorService {
                 blog.setImage(imageKey);
             }
             blog.setPreviewToken(UUID.randomUUID().toString());
+            blog.setStatus(BlogStatus.PENDING);
             blogRepository.save(blog);
         });
     }
@@ -143,9 +149,9 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public void deleteBlog(Long id){
         blogRepository.findById(id).ifPresent(blog -> {
-                    remoteStorage.deleteFile(blog.getImage());
-                    blogRepository.delete(blog);
-                });
+            remoteStorage.deleteFile(blog.getImage());
+            blogRepository.delete(blog);
+        });
     }
 
     @Override
@@ -153,4 +159,40 @@ public class AuthorServiceImpl implements AuthorService {
         Blog blog = blogRepository.findByPreviewToken(token).orElse(new Blog());
         return homeService.getBlogData(blog);
     }
+
+    @Override
+    public AuthorProfileResponse getAuthorProfile(User user) {
+        AuthorProfileResponse response = new AuthorProfileResponse();
+        response.setAuthorId(user.getId());
+        response.setName(user.getName());
+        response.setPicture(user.getPicture());
+        response.setBlogs(getAuthorBlogs(user));
+        return response;
+    }
+
+    @Override
+    public void updateAuthorProfile(String authorId, String name, MultipartFile picture) {
+        User user = userRepository.findById(authorId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(name);
+
+        if (picture != null && !picture.isEmpty()) {
+            String imageKey = UUID.randomUUID() + ".jpg";
+            remoteStorage.uploadFile(picture, imageKey);
+            user.setPicture(remoteStorage.getCdnUrl(imageKey));
+        }
+
+        userRepository.save(user);
+    }
+
+    @Override
+    public String getCurrentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName(); // Get the email (or name) from the principal
+        User user = userRepository.findById(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getName(); // Return the user's name
+    }
+
 }

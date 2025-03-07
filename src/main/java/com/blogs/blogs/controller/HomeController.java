@@ -86,4 +86,10 @@ public class HomeController {
         return "redirect:/";
     }
 
+    @GetMapping("/write-for-us")
+    public String writeForUs(Model model) {
+        model.addAttribute("categories", categoryRepo.findAll());
+        return "write-for-us";
+    }
+
 }

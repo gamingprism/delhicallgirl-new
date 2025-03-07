@@ -17,6 +17,11 @@ public class BlogsPageResponse {
     private String metaTitle;
     private String metaDescription;
     private String imageAltText;
+    private String authorUrl;
+    private String authorImage;
+    private String datePublished;
+    private String customButtonName;
+    private String customButtonUrl;
 
 
     public String getTitle() {
@@ -113,5 +118,45 @@ public class BlogsPageResponse {
 
     public void setImageAltText(String imageAltText) {
         this.imageAltText = imageAltText;
+    }
+
+    public String getAuthorUrl() {
+        return authorUrl;
+    }
+
+    public void setAuthorUrl(String authorUrl) {
+        this.authorUrl = authorUrl;
+    }
+
+    public String getAuthorImage() {
+        return authorImage;
+    }
+
+    public void setAuthorImage(String authorImage) {
+        this.authorImage = authorImage;
+    }
+
+    public String getDatePublished() {
+        return datePublished;
+    }
+
+    public void setDatePublished(String datePublished) {
+        this.datePublished = datePublished;
+    }
+
+    public String getCustomButtonName() {
+        return customButtonName;
+    }
+
+    public void setCustomButtonName(String customButtonName) {
+        this.customButtonName = customButtonName;
+    }
+
+    public String getCustomButtonUrl() {
+        return customButtonUrl;
+    }
+
+    public void setCustomButtonUrl(String customButtonUrl) {
+        this.customButtonUrl = customButtonUrl;
     }
 }

@@ -2,33 +2,50 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="/">DelhiCallGirl</a>
+
+            <!-- Navbar Toggler for Mobile -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
+            <!-- Collapsible Menu (Visible in Mobile, Hidden in Desktop) -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/my-blogs">
-                            <i class="fas fa-sign-in-alt"></i> My Blogs
+                    <!-- User Info (Only in Mobile) -->
+                    <li class="nav-item d-lg-none" sec:authorize="isAuthenticated()">
+                        <a class="nav-link">
+                            <i class="fas fa-user"></i> <span th:text="${@authorServiceImpl.getCurrentUserName()}"></span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/write-blog">
-                            <i class="fas fa-user-plus"></i> Write Blog
-                        </a>
+                    <!--<li class="nav-item d-lg-none" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/my-blogs"><i class="fas fa-blog"></i> My Blogs</a>
                     </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" href="/sign-out">
-                            <i class="fas fa-user-shield"></i> Logout
-                        </a>
+                    <li class="nav-item d-lg-none" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/write-blog"><i class="fas fa-pen"></i> Write Blog</a>
+                    </li>-->
+                    <li class="nav-item d-lg-none" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" href="/sign-out"><i class="fas fa-sign-out-alt"></i> Logout</a>
                     </li>
                     <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" href="/sign-in">
-                            <i class="fas fa-sign-in-alt"></i> Login
-                        </a>
+                        <a class="nav-link" href="/sign-in"><i class="fas fa-sign-in-alt"></i> Login</a>
                     </li>
                 </ul>
             </div>
+
+            <!-- User Dropdown (Only in Desktop) -->
+            <ul class="navbar-nav d-none d-lg-flex">
+                <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user"></i> <span th:text="${@authorServiceImpl.getCurrentUserName()}"></span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                        <!--<li><a class="dropdown-item d-flex align-items-center" href="/my-blogs"><i class="fas fa-blog me-2"></i> My Blogs</a></li>
+                        <li><a class="dropdown-item d-flex align-items-center" href="/write-blog"><i class="fas fa-pen me-2"></i> Write Blog</a></li>-->
+                        <li><a class="dropdown-item d-flex align-items-center" href="/sign-out"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>
+

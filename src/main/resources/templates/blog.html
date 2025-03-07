@@ -8,6 +8,34 @@
     <meta name="description" th:attr="content=${blog.metaDescription}">
     <link rel="canonical" th:href="${canonicalUrl}" />
 
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "[[${canonicalUrl}]]"
+            },
+            "headline": "[[${blog.title}]]",
+            "description": "[[${blog.title}]]",
+            "image": "[[${blog.image}]]",
+            "author": {
+                "@type": "Person",
+                "name": "[[${blog.author}]]",
+                "url": "[[${blog.authorUrl}]]"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "[[${blog.author}]]",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "[[${blog.authorImage}]]"
+                }
+            },
+            "datePublished": "[[${blog.datePublished}]]"
+        }
+    </script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -48,7 +76,7 @@
         }
 
         body {
-            background: linear-gradient(to right, #8b0000, #000000);
+            background: white;
             font-family: var(--font-text);
         }
 
@@ -81,17 +109,17 @@
                 <h1 th:text="${blog.title}"></h1>
                 <div class="blog-meta">
                     <div>
-                        <span><i class="fa-solid fa-user-tie"></i></span>
+                        <span style="padding-right: 5px;"><i class="fa-solid fa-user-tie"></i></span>
                         <span th:text="${blog.author}"></span>
 
                     </div>
                     <div>
-                        <span><i class="fa-solid fa-calendar-days"></i></span>
+                        <span style="padding-right: 5px;"><i class="fa-solid fa-calendar-days"></i></span>
                         <span th:text="${blog.date}"></span>
                     </div>
 
                     <div>
-                        <span><i class="fa-solid fa-eye"></i></span>
+                        <span style="padding-right: 5px;"><i class="fa-solid fa-eye"></i></span>
                         <span th:text="${blog.views}"></span>
                     </div>
 
@@ -104,6 +132,7 @@
                 <img class="blog-image" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
 
                 <div class="blog-content" id="blog-content">
+                    <div id="blog-text-1" class="blog-text-1" ></div>
                     <div class="table-of-contents">
                         <h3 id="toc-header">
                             Table of Contents
@@ -112,9 +141,16 @@
 
                         <ul id="toc-list" class="hidden"></ul>
                     </div>
-                    <div id="blog-text" th:utext="${blog.content}" class="blog-text ">
 
-                    </div>
+                    <div id="blog-text" th:utext="${blog.content}" class="blog-text "></div>
+                    <div id="blog-text-2" class="blog-text-2" ></div>
+
+                    <a th:if="${blog.customButtonName != null && blog.customButtonUrl != null}"
+                       th:href="@{${blog.customButtonUrl}}"
+                       class="btn btn-light"
+                       th:text="${blog.customButtonName}">
+                    </a>
+
 
                     <div class="comments-section">
                         <div class="comments-header">Comments (<span th:text="${#lists.size(comments)}"></span>)</div>
@@ -140,10 +176,6 @@
                                     <button class="edit-comment-btn" th:data-commentid="${comment.id}">Edit</button>
                                     <button class="delete-comment-btn" th:data-commentid="${comment.id}">Delete</button>
                                 </div>
-
-
-
-
 
                             </div>
                         </div>
@@ -185,24 +217,24 @@
             </div>
         </div>
     </div>
-        <!--recent blogs-->
-        <div class="recent-blogs">
-            <div class="recent-blog-header">Recent Blogs</div>
-            <div class="card-grid">
-                <div class="card-wrapper" th:each="blog : ${recentBlogs}">
-                    <a th:href="@{/{slug}(slug=${blog.slug})}" class="card-link">
-                        <article class="card">
-                            <img class="card__background" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
-                            <div class="card__content">
-                                <h2 class="card__title" th:text="${blog.category}"></h2>
-                                <p class="card__description" th:text="${blog.title}"></p>
-                                <div class="card__button">Read More</div>
-                            </div>
-                        </article>
-                    </a>
-                </div>
+    <!--recent blogs-->
+    <div class="recent-blogs">
+        <div class="recent-blog-header">Recent Blogs</div>
+        <div class="card-grid">
+            <div class="card-wrapper" th:each="blog : ${recentBlogs}">
+                <a th:href="@{/{slug}(slug=${blog.slug})}" class="card-link">
+                    <article class="card">
+                        <img class="card__background" th:src="${blog.image}" th:alt="${blog.imageAltText}"/>
+                        <div class="card__content">
+                            <h2 class="card__title" th:text="${blog.category}"></h2>
+                            <p class="card__description" th:text="${blog.title}"></p>
+                            <div class="card__button">Read More</div>
+                        </div>
+                    </article>
+                </a>
             </div>
         </div>
+    </div>
 
 </div>
 
@@ -210,37 +242,8 @@
 
 
 
-<script>
 
 
-    document.addEventListener("DOMContentLoaded", function () {
-        let blogContent = document.getElementById("blog-text");
-        let tocList = document.getElementById("toc-list");
-
-
-        if (!blogContent || !tocList) return;
-
-        let headers = blogContent.querySelectorAll("p > strong");
-        headers.forEach((header, index) => {
-            let id = "heading-" + index;
-            header.parentElement.id = id;
-
-            let listItem = document.createElement("li");
-            let link = document.createElement("a");
-            link.href = "#" + id;
-            link.innerText = header.innerText;
-            link.addEventListener("click", function(event) {
-                event.preventDefault();
-                document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-            });
-
-            listItem.appendChild(link);
-            tocList.appendChild(listItem);
-        });
-
-
-    });
-</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const openComment = document.getElementById("openComment");
@@ -396,6 +399,112 @@
             });
         });
     });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let blogTextElement = document.getElementById("blog-text");
+
+        if (blogTextElement) {
+            let content = blogTextElement.innerHTML;
+
+
+            let firstHalf = content.substring(0, 1000); // First half
+
+            let secondHalf = content.substring(1000,content.length); // Second half
+
+
+            document.getElementById("blog-text-1").innerHTML = firstHalf;
+
+            document.getElementById("blog-text-2").innerHTML = secondHalf;
+
+
+            // Hide the original content container
+            blogTextElement.style.display = "none";
+        }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let blogContent1 = document.getElementById("blog-text-1");
+        console.log("Blog content 1 ", blogContent1);
+        let blogContent2 = document.getElementById("blog-text-2");
+        let tocList = document.getElementById("toc-list");
+
+        if (!blogContent1 || !blogContent2 || !tocList) return;
+
+        // Function to generate TOC from a given content block
+        function generateTOC(contentBlock) {
+            let headers = contentBlock.querySelectorAll("p > strong");
+            console.log("Headers", headers);
+            headers.forEach((header, index) => {
+                let id = "heading-" + index;
+                header.parentElement.id = id; // Set ID on the parent paragraph
+
+                let listItem = document.createElement("li");
+                let link = document.createElement("a");
+                link.href = "#" + id;
+                link.innerText = header.innerText;
+                link.addEventListener("click", function (event) {
+                    event.preventDefault();
+                    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+                });
+
+                listItem.appendChild(link);
+                tocList.appendChild(listItem);
+            });
+        }
+
+        // Generate TOC for both containers
+        generateTOC(blogContent1);
+        generateTOC(blogContent2);
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let blogContent1 = document.getElementById("blog-text-1");
+        let blogContent2 = document.getElementById("blog-text-2");
+
+        function insertImagesInMiddle(blogContent) {
+            if (!blogContent) return;
+
+            let imgTags = blogContent.querySelectorAll("p img"); // Get all images inside <p>
+            console.log("Images Found:", imgTags.length);
+
+            if (imgTags.length > 0) {
+                let paragraphs = blogContent.querySelectorAll("p"); // Get all paragraphs
+
+                imgTags.forEach((imgTag, index) => {
+                    let imgSrc = imgTag.getAttribute("src");
+
+                    // Create a new image element
+                    let featuredImg = document.createElement("img");
+                    featuredImg.src = imgSrc;
+                    featuredImg.alt = "Featured Blog Image";
+                    featuredImg.style.width = "100%";
+                    featuredImg.style.height = "500px";
+                    featuredImg.style.display = "block";
+                    featuredImg.style.margin = "20px auto"; // Centers the image with spacing
+
+                    // Remove the original image to prevent duplication
+                    imgTag.remove();
+
+                    // Determine the correct paragraph to place the image after
+                    let insertIndex = paragraphs.length > 1 ? Math.floor(paragraphs.length / 2) : 0;
+
+                    if (paragraphs.length > 0) {
+                        paragraphs[insertIndex].after(featuredImg);
+                    } else {
+                        blogContent.appendChild(featuredImg); // Fallback: Append at the end
+                    }
+                });
+            }
+        }
+
+        insertImagesInMiddle(blogContent1);
+        insertImagesInMiddle(blogContent2);
+    });
+
+
 </script>
 
 <!-- Footer -->

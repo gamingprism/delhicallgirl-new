@@ -17,7 +17,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/{identifier}", "/css/**", "/js/**", "/images/**").permitAll() // Allow static files
+                        .requestMatchers("/", "/login", "/{identifier}", "/css/**", "/js/**", "/images/**", "/admin/**", "/profile/**", "/write-for-us/**").permitAll() // Allow static files
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(exception -> exception

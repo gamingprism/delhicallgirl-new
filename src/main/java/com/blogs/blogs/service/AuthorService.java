@@ -4,6 +4,7 @@ import com.blogs.blogs.entity.Blog;
 import com.blogs.blogs.entity.Category;
 import com.blogs.blogs.entity.User;
 import com.blogs.blogs.response.AuthorBlogsResponse;
+import com.blogs.blogs.response.AuthorProfileResponse;
 import com.blogs.blogs.response.BlogsPageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,4 +24,10 @@ public interface AuthorService {
     void deleteBlog(Long id);
 
     BlogsPageResponse getBlogByPreviewToken(String token);
+
+    AuthorProfileResponse getAuthorProfile(User user);
+
+    void updateAuthorProfile(String authorId, String name, MultipartFile picture);
+
+    String getCurrentUserName();
 }

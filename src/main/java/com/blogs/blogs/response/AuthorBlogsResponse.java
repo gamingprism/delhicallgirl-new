@@ -8,6 +8,7 @@ public class AuthorBlogsResponse {
     private String date;
     private String slug;
     private String previewToken;
+    private String status;
 
     public Long getId() {
         return id;
@@ -63,5 +64,13 @@ public class AuthorBlogsResponse {
 
     public void setPreviewToken(String previewToken) {
         this.previewToken = previewToken;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

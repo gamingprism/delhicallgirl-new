@@ -169,18 +169,29 @@
         <div class="blog-card" th:each="blog : ${blogs}">
             <img th:src="${blog.image}" alt="Blog Image">
             <div class="blog-details">
-                <h5 th:text="${blog.title}"></h5>
+                <h5 th:text="${#strings.length(blog.title) > 35 ? #strings.substring(blog.title, 0, 35) + '...' : blog.title}"></h5>
+
                 <p><strong>Category:</strong> <span th:text="${blog.category}"></span></p>
                 <p><strong>Date:</strong> <span th:text="${blog.date}"></span></p>
+
+                <!-- Blog Status -->
+                <p>
+                    <strong>Status:</strong>
+                    <span th:classappend="${blog.status == 'PENDING' ? 'badge bg-warning' :
+                                   (blog.status == 'APPROVED' ? 'badge bg-success' : 'badge bg-danger')}"
+                          th:text="${blog.status == 'PENDING' ? 'Pending For Review' :
+                            (blog.status == 'APPROVED' ? 'Published & Live' : 'Not Approved')}">
+            </span>
+                </p>
             </div>
             <div class="action-buttons">
-                <a th:href="@{/{slug}(slug=${blog.slug})}" class="btn btn-info">View</a>
+                <a th:if="${blog.status == 'APPROVED'}" th:href="@{/{slug}(slug=${blog.slug})}" class="btn btn-info">View</a>
                 <a th:href="@{/edit-blog/{id}(id=${blog.id})}" class="btn btn-primary">Edit</a>
-                <!-- Add this to action-buttons in author.html -->
                 <a th:href="@{/preview/{token}(token=${blog.previewToken})}" class="btn btn-warning">Preview</a>
                 <a th:href="@{/delete-blog/{id}(id=${blog.id})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
             </div>
         </div>
+
     </div>
 </div>
 
